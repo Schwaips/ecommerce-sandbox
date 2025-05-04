@@ -20,7 +20,7 @@ final class RegisterController extends AbstractController
       $user = new User();
       $form = $this->createForm(RegisterUserType::class, $user);
 
-      $form->handleRequest($request);
+      $form->handleRequest($request); // merci d'écouter ce que l'utilisateur envoit.
 
       if ($form->isSubmitted() && $form->isValid()) {
         $entityManager->persist($user); // Fige les données en lien avec l'entité
