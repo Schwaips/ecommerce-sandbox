@@ -22,4 +22,11 @@ final class LoginController extends AbstractController
           'error' => $error,
         ]);
     }
+
+    #[Route('/deconnexion', name: 'app_logout', methods: ['GET'])]
+    public function logout(): void
+    {
+      // controller can be blank: it will never be executed!
+      throw new \Exception('This should never be reached!');
+    }
 }

@@ -12,10 +12,12 @@ use Symfony\Component\HttpFoundation\Request;
 
 use Doctrine\ORM\EntityManagerInterface;
 
+use Symfony\Bundle\SecurityBundle\Security;
+
 final class RegisterController extends AbstractController
 {
     #[Route('/inscription', name: 'app_register')]
-    public function index(Request $request, EntityManagerInterface $entityManager): Response
+    public function index(Request $request, EntityManagerInterface $entityManager, Security $security): Response
     {
       $user = new User();
       $form = $this->createForm(RegisterUserType::class, $user);
@@ -25,6 +27,10 @@ final class RegisterController extends AbstractController
       if ($form->isSubmitted() && $form->isValid()) {
         $entityManager->persist($user); // Fige les données en lien avec l'entité
         $entityManager->flush(); // Enregistre les données en base de données
+        
+        // connexion automatique de l'utilisateur après l'inscription
+        $security->login($user);
+        return $this->redirectToRoute('app_account');
         $this->addFlash('success', 'Inscription réussie !');
       }
 
