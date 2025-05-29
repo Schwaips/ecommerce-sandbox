@@ -35,6 +35,18 @@ class Cart {
     $this->requestStack->getSession()->set('cart', $cart);
   }
 
+  public function decrease($product_id) {
+    $cart = $this->requestStack->getSession()->get('cart');
+
+    if($cart[$product_id]['qty'] > 1) {
+      $cart[$product_id]['qty']--;    
+    } else {
+      unset($cart[$product_id]); # remove key 
+    }
+
+    $this->requestStack->getSession()->set('cart', $cart);
+  }
+
   public function removeAllProducts() {
     return $this->requestStack->getSession()->remove('cart');
   }
