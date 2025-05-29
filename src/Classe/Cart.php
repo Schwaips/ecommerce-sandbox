@@ -50,4 +50,22 @@ class Cart {
   public function removeAllProducts() {
     return $this->requestStack->getSession()->remove('cart');
   }
+
+  public function fullQuantity() {
+    $cart = $this->requestStack->getSession()->get('cart');
+    if (!$cart) {
+      return 0;
+    }
+
+    $totalQuantity = 0;
+    foreach ($cart as $item) {
+      $totalQuantity += $item['qty'];
+    }
+    
+    return $totalQuantity;
+  }
+
+  public function getTotalWT() {
+    # TODO
+  }
 }
