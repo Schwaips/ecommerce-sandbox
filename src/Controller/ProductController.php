@@ -17,7 +17,7 @@ final class ProductController extends AbstractController
         ]);
     }
 
-    #[Route('/produit/{slug}', name: 'app_product_detail')]
+    #[Route('/produit/{slug}', name: 'app_product_show')]
     public function show($slug, ProductRepository $productRepository): Response
     {
 
