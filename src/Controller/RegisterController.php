@@ -27,11 +27,11 @@ final class RegisterController extends AbstractController
       if ($form->isSubmitted() && $form->isValid()) {
         $entityManager->persist($user); // Fige les données en lien avec l'entité
         $entityManager->flush(); // Enregistre les données en base de données
+        $this->addFlash('success', 'Inscription réussie !');
         
         // connexion automatique de l'utilisateur après l'inscription
         $security->login($user);
         return $this->redirectToRoute('app_account');
-        $this->addFlash('success', 'Inscription réussie !');
       }
 
       return $this->render('register/index.html.twig', [
