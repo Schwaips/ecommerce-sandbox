@@ -23,6 +23,11 @@ class ProductCrudController extends AbstractCrudController
 
     public function configureFields(string $pageName): iterable
     {
+      $requiredIllustration = true;
+
+      if($pageName == 'edit') {
+          $requiredIllustration = false;
+      }
         return [
             TextField::new('name'),
             SlugField::new('slug')
@@ -38,7 +43,8 @@ class ProductCrudController extends AbstractCrudController
                 ->setLabel('Illustration')
                 ->setHelp('L\'illustration du produit doit être une image au format JPEG ou PNG en 600x600')
                 ->setBasePath('/uploads/products')
-                ->setUploadDir('public/uploads/products'),
+                ->setUploadDir('public/uploads/products')
+                ->setRequired($requiredIllustration),
             NumberField::new('price')
                 ->setLabel('Prix')
                 ->setRequired(true)

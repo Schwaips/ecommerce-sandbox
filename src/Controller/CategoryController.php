@@ -19,7 +19,6 @@ final class CategoryController extends AbstractController
           return $this->redirectToRoute('app_home');
         }
 
-
         return $this->render('category/index.html.twig', [
             'category' => $category,
         ]);
