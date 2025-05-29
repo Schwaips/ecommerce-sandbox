@@ -22,8 +22,9 @@ final class ProductController extends AbstractController
     {
 
       $product = $productRepository->findOneBySlug($slug);
-        // Here you would typically fetch the product from the database using the ID.
-        // For now, we'll just return a placeholder response.
+      if (!$product) {
+        return $this->redirectToRoute('app_home');
+      }
 
         return $this->render('product/show.html.twig', [
             'product' => $product, // Placeholder for product name
