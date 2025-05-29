@@ -95,6 +95,11 @@ class Product
         return $this->price;
     }
 
+    public function getPriceWT(): ?float
+    {
+        return $this->price * (1 + $this->tva / 100);
+    }
+
     public function setPrice(float $price): static
     {
         $this->price = $price;
