@@ -15,7 +15,7 @@
               <img src="/uploads/products/{{ product.illustration }}" class="img-fluid" alt="{{ product.name }}">
               <span class="d-block fw-bold text-black">{{ product.name}} </span>
             </a>
-              <span class="d-block"> {{product.priceWT}} €</span>
+              <span class="d-block"> {{ product.priceWT|price }}</span>
           </div>
         {% endfor %}
       </div>
