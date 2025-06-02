@@ -38,21 +38,26 @@ class Address
     #[ORM\Column(length: 255)]
     private ?string $address = null;
 
+    public function __toString()
+    {
+      return $this->getFirstName() . ' ' . $this->getLastName() . ' <br/>' . $this->getAddress() . '<br/> ' . $this->getPostCode() . '<br/>' . $this->getCity() . ', ' . $this->getCountry() . '<br/> ';
+    }
+
     public function getId(): ?int
     {
-        return $this->id;
+      return $this->id;
     }
 
     public function getFirstName(): ?string
     {
-        return $this->first_name;
+      return $this->first_name;
     }
 
     public function setFirstName(string $first_name): static
     {
-        $this->first_name = $first_name;
+      $this->first_name = $first_name;
 
-        return $this;
+      return $this;
     }
 
     public function getLastName(): ?string
