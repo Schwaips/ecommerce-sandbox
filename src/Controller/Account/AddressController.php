@@ -2,6 +2,7 @@
 
 namespace App\Controller\Account;
 
+use App\Classe\Cart;
 use App\Entity\Address;
 use App\Repository\AddressRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -27,7 +28,7 @@ final class AddressController extends AbstractController {
 
 
   #[Route('/compte/adresse/ajouter/{id}', name: 'app_account_addresses_form', defaults: ['id' => null])]
-  public function form(Request $request, $id, AddressRepository $addressRepository): Response
+  public function form(Request $request, $id, AddressRepository $addressRepository, Cart $cart): Response
   {
 
     if($id) {
@@ -49,6 +50,10 @@ final class AddressController extends AbstractController {
       $this->entityManager->persist($address);
       $this->entityManager->flush();
       $this->addFlash('success', 'Votre adresse a été ajoutée avec succès !');
+
+      if($cart->fullQuantity() > 0) {
+        return $this->redirectToRoute('app_order');
+      }
 
       return $this->redirectToRoute('app_account_addresses');
     }
