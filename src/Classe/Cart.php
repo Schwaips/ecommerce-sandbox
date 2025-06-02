@@ -53,7 +53,7 @@ class Cart {
 
   public function fullQuantity() {
     $cart = $this->requestStack->getSession()->get('cart');
-    if (!$cart) {
+    if (!isset($cart)) {
       return 0;
     }
 
@@ -66,6 +66,16 @@ class Cart {
   }
 
   public function getTotalWT() {
-    # TODO
+    $cart = $this->requestStack->getSession()->get('cart');
+    if (!isset($cart)) {
+      return 0;
+    }
+
+    $total = 0;
+    foreach ($cart as $item) {
+      $total += $item['object']->getPriceWt() * $item['qty'];
+    }
+    
+    return $total;
   }
 }

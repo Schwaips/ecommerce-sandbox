@@ -4,7 +4,6 @@
 namespace App\Twig;
 
 use App\Classe\Cart;
-use App\Entity\Category;
 use App\Repository\CategoryRepository;
 use Twig\Extension\AbstractExtension;
 use Twig\Extension\GlobalsInterface;
