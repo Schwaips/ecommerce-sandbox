@@ -68,6 +68,7 @@ final class OrderController extends AbstractController
           $carrier = $data['carriers'];
 
         $order = new Order();
+        $order->setUser($this->getUser());
         $order->setCreatedAt(new \DateTime());
         $order->setState(1);
         $order->setCarrierName($carrier->getName());

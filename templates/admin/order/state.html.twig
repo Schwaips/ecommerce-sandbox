@@ -1,0 +1,17 @@
+     {# * 1 En attente de paiement
+     * 2 Paiement accepté
+     * 3 Expédié
+     */ #}
+
+
+{% if field.value ==  1 %}
+  <span class="badge text-bg-secondary">En attente de paiement</span>
+{% elseif field.value == 2 %}
+
+  <span class="badge text-bg-success">Paiement accepté</span>
+</div>
+{% elseif field.value == 3 %}
+  <span class="badge text-bg-primary">Expédié</span>
+{% else %}
+  <span class="badge text-bg-danger">Annulé</span>
+{% endif %}

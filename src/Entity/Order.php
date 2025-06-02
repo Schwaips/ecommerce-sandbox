@@ -46,6 +46,10 @@ class Order
     #[ORM\Column]
     private ?int $state = null;
 
+    #[ORM\ManyToOne(inversedBy: 'orders')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $user = null;
+
     public function __construct()
     {
         $this->orderDetails = new ArrayCollection();
@@ -144,5 +148,40 @@ class Order
         $this->state = $state;
 
         return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get the total price of the order with tax and without carrier
+     */
+    public function getTotalWt(): float
+    {
+        $totalTtc = 0;
+        foreach ($this->getOrderDetails() as $product) {
+          $coeff = 1 +  ($product->getProductTva() / 100);
+            $totalTtc += ($product->getProductPrice() * $coeff) * $product->getProductQuantity();
+        }
+        return $totalTtc + $this->getCarrierPrice();
+    }
+
+    public function getTotalTva(): float
+    {
+        $total = 0;
+        foreach ($this->getOrderDetails() as $product) {
+          $coefficient = $product->getProductTva() / 100;
+          $total += $product->getProductPrice() * $coefficient;
+        }
+        return $total;
     }
 }
