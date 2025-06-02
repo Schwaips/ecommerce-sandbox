@@ -45,8 +45,12 @@
           </div>
 
           <div class="d-flex justify-content-between mt-3">
+            <span class="fw-bold">Total HT</span>
+            <span>{{ totalExclTaxePrice|price }}</span>
+          </div>
+          <div class="d-flex justify-content-between mt-3">
             <span class="fw-bold">Total TTC</span>
-            <span>{{ totalWtprice }}</span>
+            <span>{{ totalWtprice|price }}</span>
           </div>
 
           <div class="d-flex justify-content-between mt-3">

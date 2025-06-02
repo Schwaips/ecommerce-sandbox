@@ -18,7 +18,8 @@ final class CartController extends AbstractController
 
     return $this->render('cart/index.html.twig', [
       'cart' => $cart->getCart(),
-      'totalWtprice' => $cart->getTotalWt()
+      'totalWtprice' => $cart->getTotalWt(),
+      'totalExclTaxePrice' => $cart->getTotalExclTaxes(),
     ]);
   }
 
