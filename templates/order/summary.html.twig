@@ -1,0 +1,74 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Panier - Récapitulatif{% endblock %}
+
+{% block body %}
+
+  <div class="container my-5">
+    <h1>Mon panier</h1>
+
+    <div class="row">
+      <div class="col-md-8">
+        <strong>Contenu de mon panier</strong>
+        {% for product in cart %}
+          <div class="row mt-2">
+            <div class="col-md-2">
+              <img src="/uploads/products/{{ product.object.illustration }}" class="img-fluid" alt="{{ product.object.name }}">
+            </div>
+            <div class="col-md-6">
+              <strong>{{ product.object.name }}</strong>
+              <span class="d-block small"> Prix unitaire : {{product.object.pricewt|price}}</span>
+            </div>
+            <div class="col-md-2">
+              <span class="badge text-bg-secondary"> x{{product.qty}}</span>
+            </div>
+            <div class="col-md-2">
+              <strong class="d-block">Total : {{(product.object.pricewt * product.qty)|price}}</strong>
+            </div>
+          </div>
+        {% endfor %}
+
+        <hr class="my-4">
+
+        <div class="bg-light p-3 my-4">
+          <strong>Votre adresse de livraison</strong><br/>
+          {{ choices.addresses.firstName }} {{ choices.addresses.lastName }}<br>
+          {{ choices.addresses.address }}<br>
+          {{ choices.addresses.postCode }} {{ choices.addresses.city }}<br>
+          {{ choices.addresses.country }}<br>
+          {{ choices.addresses.phone }}<br>  
+        </div>
+        <div class="bg-light p-3">
+          <strong>Transporteur</strong>
+          {{ choices.carriers.name }}<br>
+          {{ choices.carriers.description }}<br>
+        </div>
+
+      </div>
+
+      <div class="col-md-4">
+        <div class="bg-light p-2">
+          <div class="d-flex justify-content-between">
+            <span class="fw-bold">Articles</span>
+            <span>{{ totalCartWtprice|price }}</span>
+          </div>
+
+          <div class="d-flex justify-content-between mt-3">
+            <span class="fw-bold">Transporteur</span>
+            <span>{{ choices.carriers.price|price }}</span>
+          </div>
+          <hr>
+          <div class="d-flex justify-content-between mt-3">
+            <span class="fw-bold">Total </span>
+            <span>{{ (totalCartWtprice + choices.carriers.price)|price }}</span>
+          </div>
+
+          <div class="d-flex justify-content-between mt-3">
+            <a href="{{path('app_order')}}" class="btn btn-success w-100">Commander</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}
