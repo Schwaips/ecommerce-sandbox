@@ -143,4 +143,14 @@ class Address
 
         return $this;
     }
+
+    public function getFullAddress(): string
+    {
+        return $this->getFirstName() . ' ' . $this->getLastName() . ', ' . $this->getAddress() . ', ' . $this->getPostCode() . ' ' . $this->getCity() . ', ' . $this->getCountry();
+    }
+
+    public function getFullAddressHtmlFormatted(): string
+    {
+        return $this->getFirstName() . ' ' . $this->getLastName() . '<br/>' . $this->getAddress() . '<br/>' . $this->getPostCode() . ' ' . $this->getCity() . ', ' . $this->getCountry();
+    }
 }

@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Classe\Cart;
+use App\Entity\Order;
 use App\Form\OrderType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -55,14 +56,19 @@ final class OrderController extends AbstractController
       if ($form->isSubmitted() && $form->isValid()) {
           // Récupération des données du formulaire
           $data = $form->getData();
-          $address = $data['addresses'];
+          $deliveryAddress = $data['addresses'];
           $carrier = $data['carriers'];
-          // // Logique pour traiter la commande, par exemple :
-          // // - Enregistrer la commande en base de données
-          // // - Préparer le paiement avec Stripe
 
-          // // Redirection vers la page de paiement ou confirmation
-          // return $this->redirectToRoute('app_order_payment');
+        $order = new Order();
+        // $order->setUser($this->getUser());
+        $order->setCreatedAt(new \DateTime());
+        $order->setState(1);
+        $order->setCarrierName($carrier->getName());
+        $order->setCarrierPrice($carrier->getPrice());
+        $order->setDelivery($deliveryAddress->getFullAddressHtmlFormatted());
+
+        dd($order);
+
       }
 
         return $this->render('order/summary.html.twig', [
