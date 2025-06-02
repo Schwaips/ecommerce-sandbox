@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+  <div class="container my-5">
+    <h1>Espace membre</h1>
+    <div class="row">
+      <div class="col-md-3">
+        {% include 'account/_menu.html.twig' %}
+      </div>
+      <div class="col-md-9">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h5>Mes adresses</h5>
+          <a class="btn btn-secondary" href="{{ path('app_account_addresses_form')}}">Ajouter une adresse</a>
+        </div>
+
+        <div class="row">
+          {% for address in app.user.addresses %}
+            <div class="col-md-4 mt-2">
+              {# {{dump(address)}} #}
+              <div class="bg-light p-2 text-center">
+                <strong>{{address.firstName}} {{address.lastName}}</strong><br>
+                {{address.address}}<br>
+                {{address.postCode}} {{address.city}}<br>
+                {{address.country}}<br>
+                {{address.phone}}<br>
+                <a class="small text-secondary" href="{{path('app_account_addresses_form', {
+                id: address.id 
+                })}}">Modifier</a>
+                <a class="small text-secondary" href="{{path('app_account_addresses_delete', {
+                id: address.id 
+                })}}">Supprimer</a>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
