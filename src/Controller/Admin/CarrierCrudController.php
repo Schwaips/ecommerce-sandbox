@@ -27,7 +27,7 @@ class CarrierCrudController extends AbstractCrudController
                 ->setLabel('Description'),
             NumberField::new('price')
                 ->setRequired(true)
-                ->setLabel('Prix')
+                ->setLabel('Prix TTC')
                 ->setHelp('Le prix du transporteur en euros.'),
         ];
     }
